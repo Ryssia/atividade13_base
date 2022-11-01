@@ -1,4 +1,4 @@
-package ifpr.pgua.eic.listatelefonica.model.results;
+package ifpr.pgua.eic.listatelefonica.models.results;
 
 public class SuccessResult extends Result {
 

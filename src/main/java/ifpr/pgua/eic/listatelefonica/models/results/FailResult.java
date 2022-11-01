@@ -1,4 +1,4 @@
-package ifpr.pgua.eic.vendinha2022.model.results;
+package ifpr.pgua.eic.listatelefonica.models.results;
 
 
 /***

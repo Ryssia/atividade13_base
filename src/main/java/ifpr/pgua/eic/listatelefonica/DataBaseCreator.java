@@ -12,7 +12,7 @@ import ifpr.pgua.eic.listatelefonica.models.FabricaConexoes;
 
 public class DataBaseCreator {
     
-    private static final String SQL_FILE="sqls/script_sqlite.sql";
+    private static final String SQL_FILE="sqls/script.sql";
 
     public static void main(String[] args) throws Exception{
         
