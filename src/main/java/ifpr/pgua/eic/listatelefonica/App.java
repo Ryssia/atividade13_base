@@ -11,7 +11,11 @@ import java.io.IOException;
 import ifpr.pgua.eic.listatelefonica.controllers.JanelaCadastro;
 import ifpr.pgua.eic.listatelefonica.controllers.JanelaLista;
 import ifpr.pgua.eic.listatelefonica.controllers.JanelaPrincipal;
+import ifpr.pgua.eic.listatelefonica.models.FabricaConexoes;
 import ifpr.pgua.eic.listatelefonica.models.ListaTelefonica;
+import ifpr.pgua.eic.listatelefonica.models.DAOs.ContatoDAO;
+import ifpr.pgua.eic.listatelefonica.models.DAOs.JDBCContatoDAO;
+import ifpr.pgua.eic.listatelefonica.models.repositories.ContatoRepository;
 import ifpr.pgua.eic.listatelefonica.utils.BaseAppNavigator;
 import ifpr.pgua.eic.listatelefonica.utils.ScreenRegistry;
 import ifpr.pgua.eic.listatelefonica.utils.ScreenRegistryFXML;
@@ -22,6 +26,9 @@ import ifpr.pgua.eic.listatelefonica.utils.ScreenRegistryFXML;
 public class App extends BaseAppNavigator {
 
     private ListaTelefonica listaTelefonica;
+    private FabricaConexoes fabricaConexoes = FabricaConexoes.getInstance();
+    private ContatoDAO contatoDAO;
+    private ContatoRepository contatoRepository;
 
     @Override
     public void init() throws Exception {
@@ -29,6 +36,10 @@ public class App extends BaseAppNavigator {
         super.init();
 
         listaTelefonica = new ListaTelefonica();
+
+        contatoDAO = new JDBCContatoDAO(fabricaConexoes);
+        contatoRepository = new ContatoRepository(contatoDAO);
+
     }
 
     @Override
@@ -44,8 +55,8 @@ public class App extends BaseAppNavigator {
     @Override
     public void registrarTelas() {
         registraTela("PRINCIPAL", new ScreenRegistryFXML(App.class, "fxml/principal.fxml", o->new JanelaPrincipal()));
-        registraTela("CADASTRO", new ScreenRegistryFXML(App.class, "fxml/cadastro.fxml", o->new JanelaCadastro(listaTelefonica)));
-        registraTela("LISTA", new ScreenRegistryFXML(App.class, "fxml/listar.fxml", o->new JanelaLista(listaTelefonica)));
+        registraTela("CADASTRO", new ScreenRegistryFXML(App.class, "fxml/cadastro.fxml", o->new JanelaCadastro(contatoRepository)));
+        registraTela("LISTA", new ScreenRegistryFXML(App.class, "fxml/listar.fxml", o->new JanelaLista(contatoRepository)));
         
     }
 
